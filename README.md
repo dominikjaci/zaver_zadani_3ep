@@ -1,1 +1,2 @@
-# zaver_zadani_3ep
+Závěrečné zadání pro 3EP - Javascript zadání
+
