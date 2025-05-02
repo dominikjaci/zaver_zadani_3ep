@@ -4,6 +4,7 @@ const path = require('path');
 
 // Opravená cesta k auth routes
 const authRoutes = require('../routes/auth');
+const notesRoutes = require('../routes/notes'); // <-- přidej toto
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +14,7 @@ app.use(express.static(__dirname));
 
 // Použití auth routes
 app.use('/auth', authRoutes);
+app.use('/notes', notesRoutes); // <-- přidej toto
 
 // Základní route pro index.html
 app.get('/', (req, res) => {
