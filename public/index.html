@@ -2,39 +2,22 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Správce poznámek</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Úvodní stránka</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🗒️ Moje poznámky</h1>
-
-  <div class="auth-section">
-    <h2>Registrace</h2>
-    <form id="registerForm">
-      <input type="text" id="regUsername" placeholder="Uživatelské jméno" required>
-      <input type="password" id="regPassword" placeholder="Heslo" required>
-      <button type="submit">Registrovat</button>
-    </form>
-
-    <h2>Přihlášení</h2>
-    <form id="loginForm">
-      <input type="text" id="loginUsername" placeholder="Uživatelské jméno" required>
-      <input type="password" id="loginPassword" placeholder="Heslo" required>
-      <button type="submit">Přihlásit</button>
-    </form>
+  <div class="welcome-container">
+    <h1>Vítejte v poznámkovém systému</h1>
+    <p style="margin: 18px 0 32px 0; color: #444; font-size: 1.08em;">
+      Tato aplikace vám umožní jednoduše spravovat vaše poznámky online.<br>
+      Můžete si poznámky přidávat, upravovat i mazat – a to bezpečně po přihlášení.<br>
+      Všechny poznámky jsou uloženy jen pro vás.
+    </p>
+    <nav>
+      <a href="register.html">Registrace</a>
+      <a href="login.html">Přihlášení</a>
+    </nav>
   </div>
-
-  <div class="note-app hidden" id="noteApp">
-    <h2>Vítej, <span id="currentUser"></span>!</h2>
-    <form id="noteForm">
-      <input type="text" id="noteInput" placeholder="Napiš poznámku" required>
-      <button type="submit">Přidat poznámku</button>
-    </form>
-
-    <ul id="notesList"></ul>
-  </div>
-
-  <!-- Změna cesty - toto musí ukazovat na script pro frontend, ne na serverový app.js -->
-  <script src="client.js"></script>
 </body>
 </html>
