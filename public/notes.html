@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moje poznámky</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Moje poznámky</h2>
+    <div id="currentUser" style="margin-bottom: 18px; color: #3498db; font-weight: 500;"></div>
+    <form id="noteForm">
+      <input type="text" id="noteInput" placeholder="Napište novou poznámku..." required>
+      <button type="submit">Přidat poznámku</button>
+    </form>
+    <ul id="notes-container" style="margin-top: 24px;"></ul>
+    <div class="form-footer" style="margin-top: 32px;">
+      <a href="index.html">⟵ Zpět na úvod</a>
+    </div>
+  </div>
+  <script src="client.js"></script>
+</body>
+</html>
