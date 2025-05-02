@@ -2,14 +2,17 @@
   "name": "zaver_zadani_3ep",
   "version": "1.0.0",
   "description": "Závěrečné zadání pro 3EP - Javascript zadání",
-  "main": "index.js",
+  "main": "public/app.js",
   "scripts": {
+    "dev": "nodemon public/app.js",
+    "start": "node public/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^5.1.0"
   }
 }

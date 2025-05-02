@@ -1,0 +1,73 @@
+body {
+  font-family: sans-serif;
+  background: #f7f9fc;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input, button {
+  padding: 8px;
+  margin-right: 8px;
+  margin-top: 5px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.auth-section {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.note-app {
+  background: #e9f7ef;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #fff;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+li button {
+  float: right;
+  margin-left: 5px;
+  background-color: #dc3545;
+}
+
+li button.edit {
+  background-color: #28a745;
+}
+
+.hidden {
+  display: none;
+}
