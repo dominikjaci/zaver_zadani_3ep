@@ -79,7 +79,7 @@ body {
     box-shadow: 0 4px 16px rgba(52,152,219,0.15);
 }
 
-/* Centralní karta pro formuláře */
+
 .container {
     background: #fff;
     width: 100%;
@@ -187,4 +187,65 @@ button:hover, .container button:hover {
         font-size: 1em;
         padding: 10px 18px;
     }
+}
+
+.user-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 8px;
+}
+#currentUser {
+    color: #3498db;
+    font-weight: 500;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+    text-align: center;
+}
+.delete-account-area {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+#deleteAccountForm {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    margin-left: 0;
+}
+#deleteAccountPassword {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95em;
+    width: 90px;
+}
+#confirmDeleteAccount {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: background 0.2s;
+}
+#confirmDeleteAccount:hover {
+    background: #c0392b;
+}
+#deleteAccountBtn {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: background 0.2s;
+}
+#deleteAccountBtn:hover {
+    background: #c0392b;
 }
