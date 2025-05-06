@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       if (e.target.classList.contains('edit-btn')) {
-        // Všichni vidí všechny poznámky, ale upravit může jen autor (backend to ohlídá)
+        // Jdou vidět poznámky všech uživatelů
         const response = await fetch('/notes');
         const data = await response.json();
         const note = data.notes.find(n => n.id == id);
