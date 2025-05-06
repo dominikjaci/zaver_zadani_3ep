@@ -11,14 +11,31 @@
     <h2>Moje poznámky</h2>
     <div id="currentUser" style="margin-bottom: 18px; color: #3498db; font-weight: 500;"></div>
     <form id="noteForm">
-      <input type="text" id="noteInput" placeholder="Napište novou poznámku..." required>
+      <input type="text" id="noteTitle" placeholder="Nadpis poznámky" required>
+      <input type="text" id="noteInput" placeholder="Text poznámky" required>
       <button type="submit">Přidat poznámku</button>
+      <button type="button" id="showImportant">Zobrazit pouze důležité</button>
+      <button type="button" id="showAll">Zobrazit všechny</button>
     </form>
-    <ul id="notes-container" style="margin-top: 24px;"></ul>
+    <button id="deleteAccountBtn" style="margin-top:20px;">Zrušit účet</button>
+    <div id="deleteAccountForm" style="display:none; margin-bottom:20px;">
+      <input type="password" id="deleteAccountPassword" placeholder="Zadejte heslo pro potvrzení">
+      <button id="confirmDeleteAccount">Potvrdit zrušení účtu</button>
+    </div>
+    <ul id="notes-container" style="margin-top: 24px; list-style: none; padding: 0;"></ul>
     <div class="form-footer" style="margin-top: 32px;">
       <a href="index.html">⟵ Zpět na úvod</a>
     </div>
   </div>
   <script src="client.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentUser = document.getElementById('currentUser');
+      if (currentUser) {
+        currentUser.textContent = localStorage.getItem('username') || localStorage.getItem('userId') || '';
+      }
+    });
+  </script>
 </body>
 </html>

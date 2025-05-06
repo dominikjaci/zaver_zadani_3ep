@@ -6,12 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const username = document.getElementById('regUsername').value;
       const password = document.getElementById('regPassword').value;
-
+      const consent = document.getElementById('regConsent').checked;
+      if (!consent) {
+        alert('Musíte souhlasit se zpracováním dat.');
+        return;
+      }
       try {
         const response = await fetch('/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
+          body: JSON.stringify({ username, password, consent })
         });
         const data = await response.json();
         if (response.ok) {
@@ -42,11 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const data = await response.json();
         if (response.ok) {
-          // Uložení userId do localStorage (předpokládá se, že backend vrací userId)
+          // Uložení userId a username do localStorage
           if (data.userId) {
             localStorage.setItem('userId', data.userId);
+            if (data.username) localStorage.setItem('username', data.username);
+          } else if (data.user && data.user.id) {
+            localStorage.setItem('userId', data.user.id);
+            localStorage.setItem('username', data.user.username);
           } else {
             localStorage.setItem('userId', username);
+            localStorage.setItem('username', username);
           }
           window.location.href = 'notes.html';
         } else {
@@ -199,7 +208,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchNotes();
     if (currentUser) {
-      currentUser.textContent = getUserId();
+      // Zobrazit jméno uživatele místo ID
+      currentUser.textContent = localStorage.getItem('username') || getUserId();
     }
+  }
+
+  // Zrušení účtu
+  const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+  const deleteAccountForm = document.getElementById('deleteAccountForm');
+  const confirmDeleteAccount = document.getElementById('confirmDeleteAccount');
+
+  if (deleteAccountBtn && deleteAccountForm && confirmDeleteAccount) {
+    deleteAccountBtn.onclick = () => {
+      deleteAccountForm.style.display = 'block';
+    };
+    confirmDeleteAccount.onclick = async () => {
+      const password = document.getElementById('deleteAccountPassword').value;
+      if (!password) return alert('Zadejte heslo.');
+      const userId = getUserId();
+      const res = await fetch('/auth/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, password })
+      });
+      if (res.ok) {
+        alert('Účet byl zrušen.');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        window.location.href = 'register.html';
+      } else {
+        const data = await res.json();
+        alert(data.message || 'Chyba při rušení účtu.');
+      }
+    };
   }
 });
