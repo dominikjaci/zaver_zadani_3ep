@@ -12,13 +12,13 @@ function getUserId(req) {
 // Získání poznámek
 router.get('/', (req, res) => {
   const notes = JSON.parse(fs.readFileSync(notesPath));
-  const userId = req.query.userId;
-  let userNotes = notes.filter(n => n.userId === userId);
+  let filteredNotes = notes;
   if (req.query.important === 'true') {
-    userNotes = userNotes.filter(n => n.important);
+    filteredNotes = filteredNotes.filter(n => n.important);
   }
-  userNotes.sort((a, b) => new Date(b.created) - new Date(a.created));
-  res.json({ notes: userNotes });
+  // Seřadit od nejnovějších
+  filteredNotes.sort((a, b) => new Date(b.created) - new Date(a.created));
+  res.json({ notes: filteredNotes });
 });
 
 // Přidání poznámky
@@ -74,13 +74,14 @@ router.put('/:id', (req, res) => {
 });
 
 // Označení důležitosti (pouze autor)
+// Označení důležitosti (kdokoliv může)
 router.patch('/:id/important', (req, res) => {
   let notes = JSON.parse(fs.readFileSync(notesPath));
   const noteId = Number(req.params.id);
-  const { userId, important } = req.body;
+  const { important } = req.body;
   const note = notes.find(n => n.id === noteId);
-  if (!note || note.userId !== userId) {
-    return res.status(403).json({ message: 'Nemáte oprávnění upravit tuto poznámku' });
+  if (!note) {
+    return res.status(404).json({ message: 'Poznámka nenalezena' });
   }
   note.important = important;
   fs.writeFileSync(notesPath, JSON.stringify(notes, null, 2));

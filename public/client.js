@@ -63,40 +63,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesContainer = document.getElementById('notes-container');
   const currentUser = document.getElementById('currentUser');
   let editId = null;
-  
+
   function getUserId() {
     return localStorage.getItem('userId') || '';
   }
-  
+
   function formatDate(iso) {
     if (!iso) return '';
     const d = new Date(iso);
     return d.toLocaleString('cs-CZ');
   }
-  
+
   async function fetchNotes(onlyImportant = false) {
     if (!notesContainer) return;
     notesContainer.innerHTML = '<li>Načítám poznámky...</li>';
     try {
-      const params = new URLSearchParams({ userId: getUserId() });
+      const params = new URLSearchParams();
       if (onlyImportant) params.append('important', 'true');
       const response = await fetch('/notes?' + params.toString());
       const data = await response.json();
       notesContainer.innerHTML = '';
+      const myUserId = getUserId();
       if (Array.isArray(data.notes) && data.notes.length > 0) {
         data.notes.forEach(note => {
           const li = document.createElement('li');
+          let buttons = `
+            <button class="important-btn" data-id="${note.id}" style="color:${note.important ? 'orange' : '#888'}">
+              ${note.important ? 'Odebrat důležitost' : 'Označit jako důležité'}
+            </button>
+          `;
+          // Jen autor vidí Upravit/Smazat
+          if (note.userId === myUserId) {
+            buttons = `
+              <button class="edit-btn" data-id="${note.id}">Upravit</button>
+              <button class="delete-btn" data-id="${note.id}">Smazat</button>
+            ` + buttons;
+          }
           li.innerHTML = `
             <div>
               <strong>${note.title || '(bez nadpisu)'}</strong>
               <div>${note.text}</div>
               <div style="font-size:0.9em;color:#888;margin-top:2px;">${formatDate(note.created)}</div>
               <div style="margin-top:6px;">
-                <button class="edit-btn" data-id="${note.id}">Upravit</button>
-                <button class="delete-btn" data-id="${note.id}">Smazat</button>
-                <button class="important-btn" data-id="${note.id}" style="color:${note.important ? 'orange' : '#888'}">
-                  ${note.important ? 'Odebrat důležitost' : 'Označit jako důležité'}
-                </button>
+                ${buttons}
               </div>
             </div>
           `;
@@ -110,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       notesContainer.innerHTML = '<li>Chyba při načítání poznámek.</li>';
     }
   }
-  
+
   // Přidání nebo úprava poznámky
   if (noteForm && notesContainer) {
     noteForm.innerHTML = `
@@ -152,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Chyba při ukládání poznámky.');
       }
     });
-  
+
     // Delegace pro mazání, úpravu, důležitost
     notesContainer.addEventListener('click', async (e) => {
       const id = e.target.getAttribute('data-id');
@@ -163,7 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       if (e.target.classList.contains('edit-btn')) {
-        const response = await fetch('/notes?' + new URLSearchParams({ userId: getUserId() }));
+        // Všichni vidí všechny poznámky, ale upravit může jen autor (backend to ohlídá)
+        const response = await fetch('/notes');
         const data = await response.json();
         const note = data.notes.find(n => n.id == id);
         if (note) {
@@ -177,16 +187,16 @@ document.addEventListener('DOMContentLoaded', () => {
         await fetch(`/notes/${id}/important`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: getUserId(), important: e.target.textContent.includes('Označit') })
+          body: JSON.stringify({ important: e.target.textContent.includes('Označit') })
         });
         fetchNotes();
       }
     });
-  
+
     // Filtrování
     noteForm.querySelector('#showImportant').onclick = () => fetchNotes(true);
     noteForm.querySelector('#showAll').onclick = () => fetchNotes(false);
-  
+
     fetchNotes();
     if (currentUser) {
       currentUser.textContent = getUserId();
