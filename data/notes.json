@@ -1,14 +1,34 @@
 [
   {
     "id": 1746184098601,
-    "text": "d"
+    "userId": "1746182776548",
+    "title": "První poznámka",
+    "text": "d",
+    "created": "2024-05-06T12:00:00.000Z",
+    "important": false
   },
   {
     "id": 1746184102185,
-    "text": "dadada"
+    "userId": "1746182776548",
+    "title": "Druhá poznámka",
+    "text": "dadada",
+    "created": "2024-05-06T12:05:00.000Z",
+    "important": false
   },
   {
-    "id": 1746184104160,
-    "text": "dadad"
+    "id": 1746516378838,
+    "userId": "dada",
+    "title": "ss",
+    "text": "ss",
+    "created": "2025-05-06T07:26:18.838Z",
+    "important": true
+  },
+  {
+    "id": 1746516389387,
+    "userId": "dada",
+    "title": "dada",
+    "text": "dadadada",
+    "created": "2025-05-06T07:26:29.387Z",
+    "important": false
   }
 ]
