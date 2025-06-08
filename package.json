@@ -2,10 +2,10 @@
   "name": "zaver_zadani_3ep",
   "version": "1.0.0",
   "description": "Závěrečné zadání pro 3EP - Javascript zadání",
-  "main": "public/app.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon public/app.js",
-    "start": "node public/app.js",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
